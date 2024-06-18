@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="rich_black">#171a21</color>
+    <color name="rich_black_transparent">#f7171a21</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="gray">#617073</color>
+    <color name="matte_black">#202020</color>
+    <color name="off_white">#fffdf7</color>
+    <color name="deep_red">#9b2915</color>
+    <color name="light_blue">#bbadff</color>
+    <color name="light_blue_transparent">#0dbbadff</color>
 </resources>
