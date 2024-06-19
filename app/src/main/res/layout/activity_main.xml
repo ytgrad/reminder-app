@@ -35,23 +35,29 @@
             android:letterSpacing="0.1"
             tools:ignore="HardcodedText" />
     </LinearLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8.5"
-        android:text="no reminders to show here"
-        android:textColor="@color/gray"
-        android:gravity="center"
-        android:textSize="16dp"
-        tools:ignore="HardcodedText" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="no reminders to show here"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_new_reminder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.75"
         app:cornerRadius="0dp"
         android:textColor="@color/rich_black"
         android:backgroundTint="@color/light_blue"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:text="+ Add a new reminder"
         tools:ignore="HardcodedText" />
 
