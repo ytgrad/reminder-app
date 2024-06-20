@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="370dp"
         android:layout_height="match_parent"
-        android:paddingVertical="40dp"
+        android:paddingVertical="32dp"
         android:paddingHorizontal="24dp"
         android:orientation="vertical">
 
@@ -72,17 +72,15 @@
                 android:src="@drawable/calendar"/>
             <TextView
                 android:id="@+id/tv_dialog_date"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/cancel_button_background"
                 android:gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="12dp"
                 android:paddingTop="10dp"
                 android:textSize="18sp"
-                android:textColor="@color/off_white"
-                android:text="11-07-2024"/>
+                android:textColor="@color/off_white" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,24 +125,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="end"
             android:layout_marginTop="40dp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dialog_cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:background="@drawable/cancel_button_background"
                 android:layout_gravity="center_vertical"
                 android:paddingHorizontal="24dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="8dp"
                 android:textSize="18sp"
                 android:textColor="@color/light_blue"
                 android:text="cancel"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dialog_set_reminder"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="52dp"
                 android:backgroundTint="@color/light_blue"
                 android:enabled="false"
                 android:layout_marginStart="64dp"
