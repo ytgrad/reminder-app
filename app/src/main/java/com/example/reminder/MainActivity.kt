@@ -2,23 +2,21 @@ package com.example.reminder
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Window
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.marginStart
 import com.example.reminder.databinding.ActivityMainBinding
 import com.example.reminder.databinding.DialogBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         ////////////////////////////////////////////////////////////////////////////////////////
 
         val myCalendar = Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        val onDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, month)
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -72,14 +70,35 @@ class MainActivity : AppCompatActivity() {
             bindingDialog.tvDialogDate.setBackgroundResource(R.drawable.cancel_button_background)
         }
         bindingDialog.ibDialogCalendar.setOnClickListener {
-            DatePickerDialog(this, datePickerDialog, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+            val dpd = DatePickerDialog(this, onDateSetListener, myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+            dpd.datePicker.minDate = System.currentTimeMillis()
+            dpd.show()
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
-        bindingDialog.ibDialogClock.setOnClickListener {
+        val onTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            //// to prevent past time selection
+            val cal = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, hourOfDay)
+                set(Calendar.MINUTE, minute)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            if (cal.timeInMillis < System.currentTimeMillis()){
+                Toast.makeText(this, "Please select a time in the future", Toast.LENGTH_SHORT).show()
+            }else{
+                val amOrPm = if (hourOfDay > 11) "pm" else "am"
+                val hourToShow = if (hourOfDay > 12) hourOfDay - 12 else hourOfDay
+                bindingDialog.tvDialogTime.text = String.format("%02d : %02d  %s", hourToShow, minute, amOrPm)
+                bindingDialog.tvDialogTime.setBackgroundResource(R.drawable.cancel_button_background)
+            }
+        }
 
+        bindingDialog.ibDialogClock.setOnClickListener {
+            TimePickerDialog(this, onTimeSetListener, myCalendar.get(Calendar.HOUR_OF_DAY),
+                myCalendar.get(Calendar.MINUTE), false).show()
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////

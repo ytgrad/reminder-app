@@ -74,12 +74,13 @@
                 android:id="@+id/tv_dialog_date"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:fontFamily="sans-serif-light"
                 android:paddingHorizontal="16dp"
-                android:paddingBottom="12dp"
-                android:paddingTop="10dp"
-                android:textSize="18sp"
+                android:paddingBottom="10dp"
+                android:paddingTop="8dp"
+                android:textSize="14sp"
                 android:textColor="@color/off_white" />
         </LinearLayout>
         <LinearLayout
@@ -108,18 +109,16 @@
                 android:src="@drawable/clock"/>
             <TextView
                 android:id="@+id/tv_dialog_time"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/cancel_button_background"
                 android:gravity="center"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif-light"
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="12dp"
                 android:paddingTop="10dp"
-                android:textSize="18sp"
-                android:textColor="@color/off_white"
-                android:text="09:45 pm"/>
+                android:textSize="14sp"
+                android:textColor="@color/off_white" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
