@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/light_bg"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="32dp"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7.5"
+            android:orientation="vertical"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="32dp">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/off_white"
+                android:text="Title"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/off_white"
+                android:text="Description Description Description "
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:paddingStart="16dp"
+                android:textColor="@color/lighter_bg"
+                android:fontFamily="sans-serif-light"
+                android:textSize="16sp"
+                tools:text="09:45 am" />
+            <TextView
+                android:id="@+id/tv_day_and_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:paddingStart="16dp"
+                android:textColor="@color/lighter_bg"
+                android:fontFamily="sans-serif-light"
+                android:textSize="14sp"
+                tools:text="22 July" />
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:textColor="@color/lighter_bg"
+                android:fontFamily="sans-serif-light"
+                android:textSize="13sp"
+                tools:text="2024" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

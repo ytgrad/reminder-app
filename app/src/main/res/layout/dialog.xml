@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/matte_black"
+    app:cardBackgroundColor="@color/rich_black"
     android:elevation="24dp"
     app:cardCornerRadius="32dp">
 
@@ -142,7 +142,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:backgroundTint="@color/light_blue"
-                android:enabled="false"
                 android:layout_marginStart="64dp"
                 android:paddingHorizontal="24dp"
                 android:paddingTop="8dp"
