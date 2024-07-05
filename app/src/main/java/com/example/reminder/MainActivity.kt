@@ -6,13 +6,17 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reminder.databinding.ActivityMainBinding
 import com.example.reminder.databinding.DialogBinding
@@ -21,39 +25,16 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.util.Calendar
 import java.util.Locale
+import java.util.UUID
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val reminderViewModel: ReminderViewModel by viewModels()
     private var isTitleFilled = false
     private var isDescFilled = false
     private var isDateFilled = false
     private var isTimeFilled = false
-//    private val dataList = mutableListOf<MutableMap<String, Any>>(
-//        mutableMapOf(
-//            "title" to "Task1",
-//            "desc" to "Description1",
-//            "date" to LocalDate.now(),
-//            "time" to LocalTime.now()
-//        ),
-//        mutableMapOf(
-//            "title" to "Task2",
-//            "desc" to "Description2",
-//            "date" to LocalDate.now(),
-//            "time" to LocalTime.now()
-//        ),mutableMapOf(
-//            "title" to "Task3",
-//            "desc" to "Description3",
-//            "date" to LocalDate.now(),
-//            "time" to LocalTime.now()
-//        ),
-//        mutableMapOf(
-//            "title" to "Task4",
-//            "desc" to "Description4",
-//            "date" to LocalDate.now(),
-//            "time" to LocalTime.now()
-//        )
-//    )
-private val dataList = mutableListOf<MutableMap<String, Any>>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -64,21 +45,32 @@ private val dataList = mutableListOf<MutableMap<String, Any>>()
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        if (dataList.isNotEmpty()){
+
+//        reminderViewModel = ViewModelProvider(this)[ReminderViewModel::class.java]
+
+        if (reminderViewModel.dataList.isNotEmpty()){
             hideTvNoReminders()
         }else{
             showTvNoReminders()
         }
-
-        binding.rvReminderList.adapter = MyAdapter(dataList)
+        val adapter = MyAdapter()
+        adapter.submitList(reminderViewModel.dataList)
+        binding.rvReminderList.hasFixedSize()
         binding.rvReminderList.layoutManager = LinearLayoutManager(this)
+        binding.rvReminderList.adapter = adapter
+
+        fun updateList(){
+            adapter.submitList(reminderViewModel.dataList.toList())
+
+            Log.i("List", reminderViewModel.dataList.toString())
+        }
 
         binding.btnNewReminder.setOnClickListener {
-            showDialog()
+            showDialog(::updateList)
         }
     }
 
-    private fun showDialog() {
+    private fun showDialog(updateList:()->Unit) {
 
         val bindingDialog = DialogBinding.inflate(layoutInflater)
         val dialog = Dialog(this)
@@ -119,7 +111,7 @@ private val dataList = mutableListOf<MutableMap<String, Any>>()
             //// to prevent past time selection
             val cal = Calendar.getInstance().apply {
                 set(Calendar.YEAR, selectedDate.year)
-                set(Calendar.MONTH, selectedDate.monthValue)
+                set(Calendar.MONTH, selectedDate.monthValue - 1)
                 set(Calendar.DAY_OF_MONTH, selectedDate.dayOfMonth)
                 set(Calendar.HOUR_OF_DAY, hourOfDay)
                 set(Calendar.MINUTE, minute)
@@ -150,14 +142,17 @@ private val dataList = mutableListOf<MutableMap<String, Any>>()
             isDescFilled = bindingDialog.etDialogDesc.text.isNotEmpty()
 
             if (isTitleFilled && isDescFilled && isDateFilled && isTimeFilled){
-                val newReminder = mutableMapOf(
-                    "title" to bindingDialog.etDialogTitle.text,
-                    "desc" to bindingDialog.etDialogDesc.text,
-                    "date" to selectedDate,
-                    "time" to selectedTime
+                val newReminder = ItemType(
+                    id = UUID.randomUUID(),
+                    title = bindingDialog.etDialogTitle.text.toString(),
+                    desc = bindingDialog.etDialogDesc.text.toString(),
+                    year = selectedDate.year,
+                    month = selectedDate.month,
+                    dayOfMonth = selectedDate.dayOfMonth,
+                    time = selectedTime
                 )
-                dataList.add(newReminder)
-                binding.rvReminderList.adapter = MyAdapter(dataList)
+                reminderViewModel.dataList.add(newReminder)
+                updateList()
                 hideTvNoReminders()
                 dialog.dismiss()
             }else if (!isTitleFilled){
