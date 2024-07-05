@@ -35,7 +35,15 @@ class MyAdapter: ListAdapter<ItemType, MyAdapter.MyViewHolder>(DiffUtil()) {
         fun bind(item: ItemType){
             tvTitle.text = item.title
             tvDesc.text = item.desc
-            tvTime.text = item.time.toString().slice(0..4)
+            val amOrPm = if(item.time.hour > 11 ) "pm" else "am"
+            var hour = 0
+            if (item.time.hour > 12){
+                hour = item.time.hour - 12
+            }else{
+                hour = item.time.hour
+            }
+            tvTime.text = String.format("%02d:%02d %s", hour, item.time.minute, amOrPm)
+//            tvTime.text = item.time.toString().slice(0..4)
             val dayAndMonth = "${item.dayOfMonth} ${item.month.toString().slice(0..2).lowercase().replaceFirstChar { a -> a.uppercase() }}"
             tvDayAndMonth.text = dayAndMonth
             tvYear.text = item.year.toString()
